@@ -3,13 +3,10 @@ import collections
 import json 
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
-filename = "dump.json"
+filename = "dataset4.json"
 with open(filename) as f: 
-    data = json.load(f) 
+    data = json.dumps(f) 
 
-"""@app.route('/')
-def main():
-    return render_template('index.html', data = data)"""
 @app.route('/')
 def main():
     return data
