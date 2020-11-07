@@ -13,7 +13,7 @@ def sendReports():
         haku_id = int(request.json.get('haku_id'))
 
 
-        with open("dataset4.json") as f: 
+        with open("dataset5.json") as f: 
             bd = json.load(f) 
         i = 0
         palautetteva = {}
@@ -25,7 +25,7 @@ def sendReports():
                 while not loyty and l != len(loppuselvitykset):
                     if loppuselvitykset[l]["haku_id"] == haku_id:
                         loyty = True
-                        palautettava = loppuselvitykset[l]
+                        palautettava = bd[i]
                     else: 
                         l = l + 1
             i  = i + 1
