@@ -1,24 +1,46 @@
-from flask import Flask, request, render_template, json
-import collections
-import json 
+from flask import Flask, request, render_template, jsonify
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
-filename = "dump.json"
-with open(filename) as f: 
-    data = json.load(f) 
+app = Flask(__name__)
+import json
 
-"""@app.route('/')
-def main():
-    return render_template('index.html', data = data)"""
+@app.route('/sendReports', methods=['GET', 'POST'])
+def sendReports():
+    # get typed character from frontend
+    if request.json:
+        id = int(request.json.get('id'))
+        haku_id = int(request.json.get('haku_id'))
+
+
+        with open("dataset4.json") as f: 
+            bd = json.load(f) 
+        i = 0
+        palautetteva = {}
+        loyty = False
+        while not loyty:
+            l = 0
+            if bd[i]["id"] == id:
+                loppuselvitykset = bd[i]["loppuselvitys"]
+                while not loyty and l != len(loppuselvitykset):
+                    if loppuselvitykset[l]["haku_id"] == haku_id:
+                        loyty = True
+                        palautettava = loppuselvitykset[l]
+                        print(loyty)
+                    else: 
+                        l = l + 1
+            i  = i + 1
+        
+
+        return jsonify(palautettava), 200
+
+    else:
+        return jsonify({"message": "No typed found"}), 200
+
+
+# A welcome message to test our server
 @app.route('/')
-def main():
-    return data
+def index():
+    return "<h1>Raportti palvelun hieno serveri :)</h1>"
 
-
-@app.route('/results', methods=['POST', 'GET'])
-def filter():
-    return render_template('results.html')
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    # Threaded option to enable multiple instances for multiple user access support
+    app.run(threaded=True, port=5000)
