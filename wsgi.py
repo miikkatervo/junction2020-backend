@@ -1,3 +1,3 @@
-from junction2020-backend.main import app
+from app.main import app
 if __name__ == "__main__":
   app.run()

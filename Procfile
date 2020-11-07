@@ -1,1 +1,1 @@
-web: gunicorn app:junction2020-backend
+web: gunicorn wsgi:app
