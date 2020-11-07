@@ -1,7 +1,9 @@
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 import json
+cors = CORS(app)
 
 @app.route('/sendReports', methods=['GET', 'POST'])
 def sendReports():
