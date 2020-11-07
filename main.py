@@ -1,21 +1,41 @@
-from flask import Flask, request, render_template, json
-import collections
-import json 
+# app.py
+from flask import Flask, request, jsonify
+app = Flask(__name__)
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
-filename = "dataset4.json"
-with open(filename) as f: 
-    data = json.dumps(f) 
+@app.route('/sendReports', methods=['GET', 'POST'])
+def sendReports():
+    # get typed character from frontend
+    if request.json:
+        id = request.json.get('id')
+        
 
+        return jsonify(result), 200
+
+    else:
+        return jsonify({"message": "No typed found"}), 200
+
+
+@app.route('/sendTypedReports', methods=['GET', 'POST'])
+def sendReports():
+    # get typed character from frontend
+    if request.json:
+        typed = request.json.get('typed')
+        typedLowercase = "\'{}%%\'".format(typed.lower())
+        typedUppercase = "\'{}%%\'".format(typed.upper())
+
+        result = "joo"
+        
+
+        return jsonify(result), 200
+
+    else:
+        return jsonify({"message": "No typed found"}), 200
+
+# A welcome message to test our server
 @app.route('/')
-def main():
-    return data
+def index():
+    return "<h1>Raportti palvelun hieno serveri :)</h1>"
 
-
-@app.route('/results', methods=['POST', 'GET'])
-def filter():
-    return render_template('results.html')
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    # Threaded option to enable multiple instances for multiple user access support
+    app.run(threaded=True, port=5000)
