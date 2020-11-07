@@ -24,7 +24,6 @@ def sendReports():
                     if loppuselvitykset[l]["haku_id"] == haku_id:
                         loyty = True
                         palautettava = loppuselvitykset[l]
-                        print(loyty)
                     else: 
                         l = l + 1
             i  = i + 1
