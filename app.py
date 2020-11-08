@@ -13,7 +13,7 @@ def sendReports():
         haku_id = int(request.json.get('haku_id'))
 
 
-        with open("dataset7.json") as f: 
+        with open("dataset7_edit.json") as f: 
             bd = json.load(f) 
         i = 0
         palautetteva = {}
